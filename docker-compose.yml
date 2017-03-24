@@ -1,0 +1,16 @@
+base: &BASE
+  build: .
+  volumes:
+    - .:/usr/src/app
+  environment:
+    LOG_LEVEL: DEBUG
+
+local:
+  <<: *BASE
+  command:
+    python src/main.py
+
+test: &TEST
+  <<: *BASE
+  command:
+    bash -c "py.test && pyflakes src"
